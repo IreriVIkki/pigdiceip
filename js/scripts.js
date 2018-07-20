@@ -35,9 +35,10 @@
 
 
  //  player constructor
- var Player = function (name) {
+ var Player = function (name, turn) {
      this.name = name;
      this.rolls = [];
+     this.turn = turn;
  }
 
  // First dice rolling method prototype
@@ -73,23 +74,32 @@ Vikki.rollDice2();
  //  pass turn method prototype **Returns total of rolls**
  Player.prototype.passTurn = function (player) {
      var total = 0;
-     player[rolls].forEach(function (number) {
+     player.rolls.forEach(function (number) {
          total += number
      });
      return total
  }
 
  //  check if either of the rolls is a 1
- Player.prototype.rollCheck = function (player, dice1, dice2, scoreSelector, arraySelector) {
+ function rollCheck (dice1, dice2, player, player2, rollsArray, arrayTotal, totalScore) {
      if ((dice1 === 1) && (dice2 === 1)) {
-         $(scoreSelector).text('0');
-         $(arraySelector).text('0');
-     } else if ((dice1 === 1) || dice2) {
-         $(arraySelector).text('0');
+         player.rolls = []
+         $(rollsArray).text('0');
+         $(arrayTotal).text('0');
+         $(totalScore).text('0');
+         player.turn = 'waiting'
+         player2.turn = 'playing'
+     } else if ((dice1 === 1) || dice2 === 1) {
+         $(rollsArray).text(player.rolls.join(', '));
+         $(arrayTotal).text('0');
+         $(totalScore).text(player.passTurn(player));
+         player.turn = 'waiting'
+         player2.turn = 'playing'
      } else {
-         player[rolls].push((dice1 + dice2))
-         $(scoreSelector).text(player.passTurn(player));
-         $(arraySelector).text(player.rolls);
+         player.rolls.push(dice1 + dice2)
+         $(rollsArray).text(player.rolls.join(', '));
+         $(arrayTotal).text('0');
+         $(totalScore).text(player.passTurn(player));
      }
  }
 
@@ -140,26 +150,26 @@ $(document).ready(function () {
                 $('.gamePlay').removeClass('hideSection');
             }, 510);
         }
-        var Player1 = new Player(player1name);
-        var Player2 = new Player(player2name);
+        var Player1 = new Player(player1name, 'playing');
+        var Player2 = new Player(player2name, 'waiting');
 
-        console.log(Player1)
-        console.log(Player2)
+        console.log(Player1.turn)
+        console.log(Player2.turn)
 
+        // when player hits the roll dice button
         $('#rollDice').click(function (e) { 
             e.preventDefault();
+            console.log(Player1.rolls.push(1))
             var dice1 = Player1.rollDice1()
-            var dice2 = Player1.rollDice1()
-
-            console.log(dice1)
-            console.log(dice2)
+            var dice2 = Player2.rollDice2()
+            console.log(dice1 , dice2)
+            if(Player1.turn === 'playing'){
+                // alert('working player 1')
+                rollCheck(dice1, dice2, Player1, Player2, rollsArray1, arrayTotal1, totalScores1)
+            } else if (Player2.turn === 'playing') {
+                rollCheck(dice1, dice2, Player2, Player1, rollsArray2, arrayTotal2, totalScores2)
+            }
         });
     });
-
-
-
-
-
-
 });
 
