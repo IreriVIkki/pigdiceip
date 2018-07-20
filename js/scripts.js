@@ -101,6 +101,7 @@ Vikki.rollDice2();
      }
  }
 
+//  capitalize user first name incase it wasn't already
  function upperCaseFirst(string) {
      return string.charAt(0).toUpperCase() + string.slice(1);
  }
@@ -136,7 +137,7 @@ $(document).ready(function () {
             }, 500);
             var wait = setTimeout(function () {
                 $('#user1Name').html(upperCaseFirst(player1name));
-                $('#user2Name').html((player2name));
+                $('#user2Name').html(upperCaseFirst(player2name));
                 $('.gamePlay').removeClass('hideSection');
             }, 510);
         }
