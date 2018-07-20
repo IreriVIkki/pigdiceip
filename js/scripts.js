@@ -88,24 +88,31 @@ passTurn = function (Player1, Player2) {
 
 
  //  check if either of the rolls is a 1
- function rollCheck (dice1, dice2, player, player2, rollsArray, arrayTotal, totalScore) {
+ function rollCheck (dice1, dice2, player, player2, dice1id, dice2id, diceTotal, totalScoreid) {
      if ((dice1 === 1) && (dice2 === 1)) {
          player.rolls = []
-         $(rollsArray).text('0');
-         $(arrayTotal).text('0');
-         $(totalScore).text('0');
+         $(dice1id).text(dice1);
+         $(dice2id).text(dice2);
+         $(diceTotal).text('0');
+         $(totalScoreid).text(player.passTurn(player));
          passTurn(player, player2)
      } else if ((dice1 === 1) || dice2 === 1) {
-         $(rollsArray).html(player.rolls.join(', '));
-         $(arrayTotal).text('0');
-         $(totalScore).text(player.passTurn(player));
+         $(dice1id).text(dice1);
+         $(dice2id).text(dice2);
+         $(diceTotal).text('0');
+         $(totalScoreid).text(player.passTurn(player));
          passTurn(player, player2)
      } else {
          player.rolls.push(dice1 + dice2)
-         $(rollsArray).html(player.rolls.join(', '));
-         $(arrayTotal).text('0');
-         $(totalScore).text(player.passTurn(player));
+         $(dice1id).text(dice1);
+         $(dice2id).text(dice2);
+         $(diceTotal).text(dice1 + dice2);
+         $(totalScoreid).text(player.passTurn(player));
      }
+ }
+
+ function currentTotal (dice1, dice2){
+     return (dice1 + dice2)
  }
 
  //  check if a player has reached 100 points
@@ -163,16 +170,16 @@ $(document).ready(function () {
         console.log(Player2.turn)
 
         // when player hits the roll dice button
+        var turnTotal = 0;
         $('#rollDice').click(function (e) { 
             e.preventDefault();
             var dice1 = Player1.rollDice1()
             var dice2 = Player2.rollDice2()
-            console.log(dice1 , dice2)
+            var diceTotal = (dice1 + dice2)
             if(Player1.turn === 'playing'){
-                // alert('working player 1')
-                rollCheck(dice1, dice2, Player1, Player2, rollsArray1, arrayTotal1, totalScores1)
+                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1)
             } else if (Player2.turn === 'playing') {
-                rollCheck(dice1, dice2, Player2, Player1, rollsArray2, arrayTotal2, totalScores2)
+                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2)
             }
         });
         $('#passTurn').click(function (e) {
