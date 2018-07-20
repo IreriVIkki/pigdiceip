@@ -115,8 +115,21 @@ $(document).ready(function () {
 
     $('#play').click(function (e) { 
         e.preventDefault();
-        
+        var player1name = $('#userNameInput1').val();
+        var player2name = $('#userNameInput2').val();
+        $('.setUp').addClass('slideOutRight');
+        var wait = setTimeout(function(){
+            $('.setUp').addClass('hideSection');
+            $('.gamePlay').addClass('slideInLeft');
+        }, 500);
+        var wait = setTimeout(function(){
+            $('.gamePlay').removeClass('hideSection');
+        }, 510);    
     });
+
+    
+
+
 
 });
 
