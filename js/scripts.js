@@ -101,4 +101,22 @@ Vikki.rollDice2();
      }
  }
 
- 
+// 
+// 
+// 
+// user logic
+// 
+// 
+
+$(document).ready(function () {
+    // set the user name
+    var player1name = $('#userNameInput1').val();
+    var player2name = $('#userNameInput2').val();
+
+    $('#play').click(function (e) { 
+        e.preventDefault();
+        
+    });
+
+});
+
