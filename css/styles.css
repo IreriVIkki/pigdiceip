@@ -34,3 +34,8 @@ body {
 .hideSection {
     display: none;
 }
+
+.text-wrap-none {
+    word-wrap: break-word;
+    text-overflow: clip;
+}

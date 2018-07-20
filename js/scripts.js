@@ -65,12 +65,6 @@
      }
  }
 
-var Vikki = new Player('vikki');
-
-console.log(Vikki.name)
-Vikki.rollDice1();
-Vikki.rollDice2();
-
  //  pass turn method prototype **Returns total of rolls**
  Player.prototype.passTurn = function (player) {
      var total = 0;
@@ -80,6 +74,19 @@ Vikki.rollDice2();
      return total
  }
 
+//  function for switching turns
+
+passTurn = function (Player1, Player2) {
+    if (Player1.turn === 'playing') {
+        Player1.turn = 'waiting'
+        Player2.turn = 'playing'
+    } else if (Player2.turn === 'playing') {
+        Player2.turn = 'waiting'
+        Player1.turn = 'playing'
+    }
+}
+
+
  //  check if either of the rolls is a 1
  function rollCheck (dice1, dice2, player, player2, rollsArray, arrayTotal, totalScore) {
      if ((dice1 === 1) && (dice2 === 1)) {
@@ -87,17 +94,15 @@ Vikki.rollDice2();
          $(rollsArray).text('0');
          $(arrayTotal).text('0');
          $(totalScore).text('0');
-         player.turn = 'waiting'
-         player2.turn = 'playing'
+         passTurn(player, player2)
      } else if ((dice1 === 1) || dice2 === 1) {
-         $(rollsArray).text(player.rolls.join(', '));
+         $(rollsArray).html(player.rolls.join(', '));
          $(arrayTotal).text('0');
          $(totalScore).text(player.passTurn(player));
-         player.turn = 'waiting'
-         player2.turn = 'playing'
+         passTurn(player, player2)
      } else {
          player.rolls.push(dice1 + dice2)
-         $(rollsArray).text(player.rolls.join(', '));
+         $(rollsArray).html(player.rolls.join(', '));
          $(arrayTotal).text('0');
          $(totalScore).text(player.passTurn(player));
      }
@@ -110,6 +115,7 @@ Vikki.rollDice2();
          $(winSelector).text(victory);
      }
  }
+
 
 //  capitalize user first name incase it wasn't already
  function upperCaseFirst(string) {
@@ -159,7 +165,6 @@ $(document).ready(function () {
         // when player hits the roll dice button
         $('#rollDice').click(function (e) { 
             e.preventDefault();
-            console.log(Player1.rolls.push(1))
             var dice1 = Player1.rollDice1()
             var dice2 = Player2.rollDice2()
             console.log(dice1 , dice2)
@@ -169,6 +174,10 @@ $(document).ready(function () {
             } else if (Player2.turn === 'playing') {
                 rollCheck(dice1, dice2, Player2, Player1, rollsArray2, arrayTotal2, totalScores2)
             }
+        });
+        $('#passTurn').click(function (e) {
+            e.preventDefault();
+            passTurn(Player1, Player2)
         });
     });
 });
