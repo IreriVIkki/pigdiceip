@@ -76,33 +76,36 @@
 
 //  function for switching turns
 
-passTurn = function (Player1, Player2) {
+passTurnF = function (Player1, Player2, active1, active2) {
     if (Player1.turn === 'playing') {
         Player1.turn = 'waiting'
         Player2.turn = 'playing'
-        $(selector).addClass(className);
+        $(active1).removeClass('fadeIn');
+        $(active2).addClass('fadeIn');
     } else if (Player2.turn === 'playing') {
         Player2.turn = 'waiting'
         Player1.turn = 'playing'
+        $(active2).removeClass('fadeIn');
+        $(active1).addClass('fadeIn');
     }
 }
 
 
  //  check if either of the rolls is a 1
- function rollCheck (dice1, dice2, player, player2, dice1id, dice2id, diceTotal, totalScoreid) {
+ function rollCheck (dice1, dice2, player, player2, dice1id, dice2id, diceTotal, totalScoreid, active1, active2) {
      if ((dice1 === 1) && (dice2 === 1)) {
          player.rolls = []
          $(dice1id).text(dice1);
          $(dice2id).text(dice2);
          $(diceTotal).text('0');
          $(totalScoreid).text(player.passTurn(player));
-         passTurn(player, player2)
+         passTurnF(player, player2, active1, active2)
      } else if ((dice1 === 1) || dice2 === 1) {
          $(dice1id).text(dice1);
          $(dice2id).text(dice2);
          $(diceTotal).text('0');
          $(totalScoreid).text(player.passTurn(player));
-         passTurn(player, player2)
+         passTurnF(player, player2, active1, active2)
      } else {
          player.rolls.push(dice1 + dice2)
          $(dice1id).text(dice1);
@@ -118,7 +121,7 @@ passTurn = function (Player1, Player2) {
 
  //  check if a player has reached 100 points
  Player.prototype.winGame = function (player, winSelector) {
-     if (player.passTurn() >= 100) {
+     if (player.passTurn(player) >= 100) {
          var victory = player.name + 'WINS!!'
          $(winSelector).text(victory);
      }
@@ -178,14 +181,14 @@ $(document).ready(function () {
             var dice2 = Player2.rollDice2()
             var diceTotal = (dice1 + dice2)
             if(Player1.turn === 'playing'){
-                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1)
+                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1, user1Active, user2Active)
             } else if (Player2.turn === 'playing') {
-                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2)
+                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2, user1Active, user2Active)
             }
         });
         $('#passTurn').click(function (e) {
             e.preventDefault();
-            passTurn(Player1, Player2)
+            passTurnF(Player1, Player2, user1Active, user2Active)
         });
     });
 });
