@@ -11,8 +11,6 @@ body {
     background-repeat: no-repeat;
 }
 
-
-
 .carousel-item > img{
     height: 500px;
     overflow: hidden;
@@ -20,7 +18,7 @@ body {
 
 .players {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 40% 15% 40%;
     grid-column-gap: 1em;
 }
 

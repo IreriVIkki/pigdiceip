@@ -45,7 +45,7 @@
      for (;;) {
          var number = parseInt(Math.random() * 10)
          if (number > 0 && number < 7) {
-             console.log(number)
+            //  console.log(number)
              return number
              break
          }
@@ -57,7 +57,7 @@
      for (;;) {
          var number = parseInt(Math.random() * 10)
          if (number > 0 && number < 7) {
-             console.log(number)
+            //  console.log(number)
              return number
              break
          }
@@ -108,15 +108,14 @@ Vikki.rollDice2();
 
 // 
 // 
-// 
 // user logic
 // 
 // 
 
 $(document).ready(function () {
-    // set the user name
-    var player1name = $('#userNameInput1').val();
-    var player2name = $('#userNameInput2').val();
+    // // set the user name
+    // var player1name = $('#userNameInput1').val();
+    // var player2name = $('#userNameInput2').val();
 
     $('#play').click(function (e) { 
         e.preventDefault();
@@ -146,7 +145,17 @@ $(document).ready(function () {
 
         console.log(Player1)
         console.log(Player2)
+
+        $('#rollDice').click(function (e) { 
+            e.preventDefault();
+            var dice1 = Player1.rollDice1()
+            var dice2 = Player1.rollDice1()
+
+            console.log(dice1)
+            console.log(dice2)
+        });
     });
+
 
 
 
