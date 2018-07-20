@@ -1,5 +1,11 @@
 body > *{
+    font-family: 'Exo 2', sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.carousel-item > img{
+    height: 500px;
+    overflow: hidden;
 }
 
