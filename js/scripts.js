@@ -80,6 +80,7 @@ passTurn = function (Player1, Player2) {
     if (Player1.turn === 'playing') {
         Player1.turn = 'waiting'
         Player2.turn = 'playing'
+        $(selector).addClass(className);
     } else if (Player2.turn === 'playing') {
         Player2.turn = 'waiting'
         Player1.turn = 'playing'
