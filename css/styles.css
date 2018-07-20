@@ -2,7 +2,13 @@ body > *{
     font-family: 'Exo 2', sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('img/');
+}
+
+body {
+    background-image: url('../img/bodybg.jpg');
+    background-attachment: fixed;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
 }
 
 
