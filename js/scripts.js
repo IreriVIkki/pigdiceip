@@ -101,6 +101,10 @@ Vikki.rollDice2();
      }
  }
 
+ function upperCaseFirst(string) {
+     return string.charAt(0).toUpperCase() + string.slice(1);
+ }
+
 // 
 // 
 // 
@@ -115,19 +119,35 @@ $(document).ready(function () {
 
     $('#play').click(function (e) { 
         e.preventDefault();
+
         var player1name = $('#userNameInput1').val();
         var player2name = $('#userNameInput2').val();
-        $('.setUp').addClass('slideOutRight');
-        var wait = setTimeout(function(){
-            $('.setUp').addClass('hideSection');
-            $('.gamePlay').addClass('slideInLeft');
-        }, 500);
-        var wait = setTimeout(function(){
-            $('.gamePlay').removeClass('hideSection');
-        }, 510);    
+
+        console.log(player1name.length === 0)
+
+        //  check if user names are empty
+        if (player1name.length === 0 || player2name.length === 0){
+            alert('please enter your username')
+        } else {
+            $('.setUp').addClass('slideOutRight');
+            var wait = setTimeout(function () {
+                $('.setUp').addClass('hideSection');
+                $('.gamePlay').addClass('slideInLeft');
+            }, 500);
+            var wait = setTimeout(function () {
+                $('#user1Name').html(upperCaseFirst(player1name));
+                $('#user2Name').html((player2name));
+                $('.gamePlay').removeClass('hideSection');
+            }, 510);
+        }
+        var Player1 = new Player(player1name);
+        var Player2 = new Player(player2name);
+
+        console.log(Player1)
+        console.log(Player2)
     });
 
-    
+
 
 
 
