@@ -80,32 +80,51 @@ passTurnF = function (Player1, Player2, active1, active2) {
     if (Player1.turn === 'playing') {
         Player1.turn = 'waiting'
         Player2.turn = 'playing'
-        $(active1).removeClass('fadeIn');
-        $(active2).addClass('fadeIn');
+        $(active2).addClass('flipOutY');
+        $(active2).removeClass('flipInY');
+        $(active1).addClass('flipInY');
+        $(active1).removeClass('flipOutY');
     } else if (Player2.turn === 'playing') {
         Player2.turn = 'waiting'
         Player1.turn = 'playing'
-        $(active2).removeClass('fadeIn');
-        $(active1).addClass('fadeIn');
+        $(active1).addClass('flipOutY');
+        $(active1).removeClass('flipInY');
+        $(active2).addClass('flipInY');
+        $(active1).removeClass('flipOutY');
     }
 }
 
+//   change active user
+activeUser = function (Player1, Player2, active1, active2) {
+        if (Player1.turn === 'playing') {
+            $(active2).addClass('flipOutY');
+            $(active2).removeClass('flipInY');
+            $(active1).addClass('flipInY');
+            $(active1).removeClass('flipOutY');
+        } else if (Player2.turn === 'playing') {
+            $(active1).addClass('flipOutY');
+            $(active1).removeClass('flipInY');
+            $(active2).addClass('flipInY');
+            $(active1).removeClass('flipOutY');
+        }
+}
 
  //  check if either of the rolls is a 1
- function rollCheck (dice1, dice2, player, player2, dice1id, dice2id, diceTotal, totalScoreid, active1, active2) {
+
+ function rollCheck (dice1, dice2, player, player2, dice1id, dice2id, diceTotal, totalScoreid) {
      if ((dice1 === 1) && (dice2 === 1)) {
          player.rolls = []
          $(dice1id).text(dice1);
          $(dice2id).text(dice2);
          $(diceTotal).text('0');
          $(totalScoreid).text(player.passTurn(player));
-         passTurnF(player, player2, active1, active2)
+         passTurnF(player, player2)
      } else if ((dice1 === 1) || dice2 === 1) {
          $(dice1id).text(dice1);
          $(dice2id).text(dice2);
          $(diceTotal).text('0');
          $(totalScoreid).text(player.passTurn(player));
-         passTurnF(player, player2, active1, active2)
+         passTurnF(player, player2)
      } else {
          player.rolls.push(dice1 + dice2)
          $(dice1id).text(dice1);
@@ -179,16 +198,17 @@ $(document).ready(function () {
             e.preventDefault();
             var dice1 = Player1.rollDice1()
             var dice2 = Player2.rollDice2()
-            var diceTotal = (dice1 + dice2)
             if(Player1.turn === 'playing'){
-                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1, user1Active, user2Active)
+                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1)
+                activeUser(Player1, Player2, user1Active, user2Active)
             } else if (Player2.turn === 'playing') {
-                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2, user1Active, user2Active)
+                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2)
+                activeUser(Player1, Player2, user1Active, user2Active)
             }
         });
         $('#passTurn').click(function (e) {
             e.preventDefault();
-            passTurnF(Player1, Player2, user1Active, user2Active)
+            passTurnF(Player1, Player2)
         });
     });
 });
