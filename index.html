@@ -21,15 +21,13 @@
                 <div class="carousel-item">
                     <img class="d-block w-100" src="img/dicebg.jpg" alt="second SLide">
                     <div class="carousel-caption">
-                        <h3>slide 2</h3>
-                        <p>second slide</p>
+                        <h3 class="display-1">Pig Dice</h3>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100" src="img/dicebg2.jpg" alt="third SLide">
                     <div class="carousel-caption">
-                        <h3>slide 3</h3>
-                        <p>third slide</p>
+                        <h3 class="display-1">Pig Dice</h3>
                     </div>
                 </div>
             </div>
@@ -80,16 +78,16 @@
         </div>
     </div>
 
-    <section class="gamePlay animated ">
+    <section class="gamePlay animated hideSection">
         <div class="container mt-5">
             <div class="players text-center">
-                <div class="p-3 player1 img-thumbnail d-flex flex-column align-items-center">
+                <div class="p-3 player1 img-thumbnail d-flex flex-column align-items-center" id="player1">
                     <div class="card avatar">
                         <img class="card-img-top" src="img/maleAvatar.png" alt="">
                         <label class="d-block card-header" for="userName" id="user1Name">User Name</label>
-                        <label class="card-footer m-0 p-1 animated bg-warning" for="active" id="user1Active">
+                        <!-- <label class="card-footer m-0 p-1 animated bg-warning" for="active" id="user1Active">
                             your turn!
-                        </label>
+                        </label> -->
                     </div>
                    <form action="" class="">
                         <label class="mt-2 form-control form-row text-center" for="" id="totalScores1">total score</label>
@@ -111,15 +109,16 @@
                     <div class="align-self-center">
                         <button class="btn btn-lg btn-info my-1 mx-2" id="rollDice">roll dice</button>
                         <button class="btn btn-lg btn-success my-1 mx-2" id="passTurn">pass turn</button>
+                        <label class="bg-danger p-4 text-white display-4 hideSection" for="winner" id="winner"></label>
                     </div>
                 </div>
-                <div class="p-3 player2 img-thumbnail d-flex flex-column align-items-center">
+                <div class="p-3 player2 img-thumbnail d-flex flex-column align-items-center" id="player2">
                     <div class="card avatar">
                         <img class="card-img-top" src="img/femaleAvatar.png" alt="">
                         <label class="d-block card-header" for="userName" id="user2Name">User Name</label>
-                        <label class="card-footer m-0 p-1 animated bg-warning" for="active" id="user2Active">
+                        <!-- <label class="card-footer m-0 p-1 animated bg-warning" for="active" id="user2Active">
                             your turn!
-                        </label>
+                        </label> -->
                     </div>
                    <form action="" class="">
                         <label class="mt-2 form-control form-row text-center" for="" id="totalScores2">total score</label>

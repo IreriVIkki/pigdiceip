@@ -76,36 +76,28 @@
 
 //  function for switching turns
 
-passTurnF = function (Player1, Player2, active1, active2) {
+passTurnF = function (Player1, Player2, player1, player2) {
     if (Player1.turn === 'playing') {
         Player1.turn = 'waiting'
         Player2.turn = 'playing'
-        $(active2).addClass('flipOutY');
-        $(active2).removeClass('flipInY');
-        $(active1).addClass('flipInY');
-        $(active1).removeClass('flipOutY');
+        $(player1).addClass('bg-info');
+        $(player2).removeClass('bg-info');
     } else if (Player2.turn === 'playing') {
         Player2.turn = 'waiting'
         Player1.turn = 'playing'
-        $(active1).addClass('flipOutY');
-        $(active1).removeClass('flipInY');
-        $(active2).addClass('flipInY');
-        $(active1).removeClass('flipOutY');
+        $(player2).addClass('bg-info');
+        $(player1).removeClass('bg-info');
     }
 }
 
 //   change active user
-activeUser = function (Player1, Player2, active1, active2) {
+activeUser = function (Player1, Player2, player1id, player2id) {
         if (Player1.turn === 'playing') {
-            $(active2).addClass('flipOutY');
-            $(active2).removeClass('flipInY');
-            $(active1).addClass('flipInY');
-            $(active1).removeClass('flipOutY');
+            $(player1id).addClass('bg-info');
+            $(player2id).removeClass('bg-info');
         } else if (Player2.turn === 'playing') {
-            $(active1).addClass('flipOutY');
-            $(active1).removeClass('flipInY');
-            $(active2).addClass('flipInY');
-            $(active1).removeClass('flipOutY');
+            $(player2id).addClass('bg-info');
+            $(player1id).removeClass('bg-info');
         }
 }
 
@@ -118,7 +110,7 @@ activeUser = function (Player1, Player2, active1, active2) {
          $(dice2id).text(dice2);
          $(diceTotal).text('0');
          $(totalScoreid).text(player.passTurn(player));
-         passTurnF(player, player2)
+         passTurnF(player, player2);
      } else if ((dice1 === 1) || dice2 === 1) {
          $(dice1id).text(dice1);
          $(dice2id).text(dice2);
@@ -141,8 +133,9 @@ activeUser = function (Player1, Player2, active1, active2) {
  //  check if a player has reached 100 points
  Player.prototype.winGame = function (player, winSelector) {
      if (player.passTurn(player) >= 100) {
-         var victory = player.name + 'WINS!!'
+         var victory = player.name + '  WINS!!'
          $(winSelector).text(victory);
+         $(winSelector).removeClass('hideSection');
      }
  }
 
@@ -199,16 +192,18 @@ $(document).ready(function () {
             var dice1 = Player1.rollDice1()
             var dice2 = Player2.rollDice2()
             if(Player1.turn === 'playing'){
-                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1)
-                activeUser(Player1, Player2, user1Active, user2Active)
+                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1, player1, player2)
+                Player1.winGame(Player1, winner)
+                activeUser(Player1, Player2, player1, player2)
             } else if (Player2.turn === 'playing') {
-                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2)
-                activeUser(Player1, Player2, user1Active, user2Active)
+                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2, player1, player2)
+                activeUser(Player1, Player2, player1, player2)
+                Player1.winGame(Player2, winner)
             }
         });
         $('#passTurn').click(function (e) {
             e.preventDefault();
-            passTurnF(Player1, Player2)
+            passTurnF(Player1, Player2, player1, player2)
         });
     });
 });
