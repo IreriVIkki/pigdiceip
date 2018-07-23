@@ -34,6 +34,26 @@
         </div>
     </header>
 
+    <!-- winner-Modal -->
+<div class="modal fade" id="winModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <label class="bg-danger p-4 display-4" for="winner" id="winner"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+
     <!-- collect user name -->
     <div class="setUp animated">
         <div class="container bg-light py-5 d-flex flex-column text-center justify-content-center mt-3">
@@ -109,7 +129,6 @@
                     <div class="align-self-center">
                         <button class="btn btn-lg btn-info my-1 mx-2" id="rollDice">roll dice</button>
                         <button class="btn btn-lg btn-success my-1 mx-2" id="passTurn">pass turn</button>
-                        <label class="bg-danger p-4 text-white display-4 hideSection" for="winner" id="winner"></label>
                     </div>
                 </div>
                 <div class="p-3 player2 img-thumbnail d-flex flex-column align-items-center" id="player2">

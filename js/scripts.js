@@ -76,17 +76,13 @@
 
 //  function for switching turns
 
-passTurnF = function (Player1, Player2, player1, player2) {
+passTurnF = function (Player1, Player2) {
     if (Player1.turn === 'playing') {
         Player1.turn = 'waiting'
         Player2.turn = 'playing'
-        $(player1).addClass('bg-info');
-        $(player2).removeClass('bg-info');
     } else if (Player2.turn === 'playing') {
         Player2.turn = 'waiting'
         Player1.turn = 'playing'
-        $(player2).addClass('bg-info');
-        $(player1).removeClass('bg-info');
     }
 }
 
@@ -135,7 +131,7 @@ activeUser = function (Player1, Player2, player1id, player2id) {
      if (player.passTurn(player) >= 100) {
          var victory = player.name + '  WINS!!'
          $(winSelector).text(victory);
-         $(winSelector).removeClass('hideSection');
+         $('#winModal').modal('show');
      }
  }
 
@@ -192,11 +188,11 @@ $(document).ready(function () {
             var dice1 = Player1.rollDice1()
             var dice2 = Player2.rollDice2()
             if(Player1.turn === 'playing'){
-                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1, player1, player2)
+                rollCheck(dice1, dice2, Player1, Player2, dice11, dice12, dicetotal11, totalScores1)
                 Player1.winGame(Player1, winner)
                 activeUser(Player1, Player2, player1, player2)
             } else if (Player2.turn === 'playing') {
-                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2, player1, player2)
+                rollCheck(dice1, dice2, Player2, Player1, dice21, dice22, dicetotal21, totalScores2)
                 activeUser(Player1, Player2, player1, player2)
                 Player1.winGame(Player2, winner)
             }
