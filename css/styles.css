@@ -39,3 +39,8 @@ body {
     word-wrap: break-word;
     text-overflow: clip;
 }
+
+.carousel-caption {
+    bottom: 35% !important;
+    right: 15% !important;
+}
