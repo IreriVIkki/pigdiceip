@@ -122,6 +122,19 @@ activeUser = function (Player1, Player2, player1id, player2id) {
      }
  }
 
+function playAgain(Player1, Player2, totalScores1, dice11, dice12, dicetotal11, totalScores2, dice21, dice22, dicetotal21){
+    Player1.rolls = [];
+    Player2.rolls = [];
+    $(totalScores1).text('0');
+    $(dice11).text('0');
+    $(dice12).text('0');
+    $(dicetotal11).text('0');
+    $(totalScores2).text('0');
+    $(dice21).text('0');
+    $(dice22).text('0');
+    $(dicetotal21).text('0');
+}
+
  function currentTotal (dice1, dice2){
      return (dice1 + dice2)
  }
@@ -200,6 +213,14 @@ $(document).ready(function () {
         $('#passTurn').click(function (e) {
             e.preventDefault();
             passTurnF(Player1, Player2, player1, player2)
+        });
+        $('#playAgain').click(function (e) { 
+            e.preventDefault();
+            playAgain(Player1, Player2, totalScores1, dice11, dice12, dicetotal11, totalScores2, dice21, dice22, dicetotal21)
+        });
+        $('#newGame').click(function (e) { 
+            e.preventDefault();
+            location.reload()
         });
     });
 });
